@@ -1,3 +1,5 @@
+# Ignorar todo lo de data
+db/data/**
 ./db/data
 db/data
 
@@ -7,5 +9,129 @@ db/data
 ./db/data/*
 /db/data/*
 
-# Ignorar todo lo de data
-db/data/**
+# Visual Studio files
+.vscode/
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+Project.User
+[Rr]e[Ss]harper
+*_ReSharper.*
+*.[Cc]ache
+Ankh.NoLoad
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
+
+# Mono Auto Generated Files
+mono_crash.*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# VS Code folders
+.vscode/
+
+# User-specific files
+*.suo
+*.user
+*.suo
+*.user
+
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
+
+# Visual Studio 2019
+.vs2019/
+[Bb]in/
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+[Aa][Rr][Cc]/
+[Aa][Rr][Cc]64/
+[Aa][Rr][Cc]86/
+[Bb][Ii][Nn]/
+[Oo][Bb][Jj]/
+[Ll][Oo][Gg]/
+[Ll][Oo][Gg][Ss]/
+[Ll][Oo][Gg][Bb][Aa][Cc][Kk][Uu][Pp]/
+[Tt][Ee][Mm][Pp]/
+[Rr][Ee][Ll][Ee][Aa][Ss][Ee]/
+[Ii][Nn][Tt][Ee][Rr][Mm][Ee][Dd][Ii][Aa][Tt][Ee]/
+[Ww][Pp][Rr][Ee][Tt][Ee][Mm][Pp]/
+[Ss][Ss][Ll][Cc][Cc][Cc][Oo][Oo][Kk][Ii][Ee][Ss]/
+[Ee][Ss][Uu][Ss][Cc][Cc][Cc][Oo][Oo][Kk][Ii][Ee][Ss]/
+[Ee][Ss][Uu][Ss][Cc][Cc][Cc][Oo][Oo][Kk][Ii][Ee][Ss]/
+[Ss][qQ][Ll][Cc][Cc][Cc][Oo][Oo][Kk][Ii][Ee][Ss]/
+[Cc][Hh][Aa][Cc][Hh][Ee][Ff][Ii][Ll][Ee][Ss]/
+[Ll][Oo][Cc][Aa][Ll][Ss][Tt][Aa][Tt][Ee]/
+[Rr][Dd][Ll][Ll][Ss]/
+[Dd][Bb][Cc][Dd][Ll][Ll][Cc][Cc][Cc][Oo][Oo][Kk][Ii][Ee][Ss]/
+[Ii][Dd][Ll][Ee][Tt][Ii][Mm][Ee][Oo][Uu][Tt]/
+[Ww][Ee][Bb][Cc][Aa][Cc][Hh][Ee]/
+[Dd][Ee][Bb][Uu][Gg]/
+[Tt][Ee][Ss][Tt]/
+[Tt][Ee][Ss][Tt][Rr][Ee][Ss][Uu][Ll][Tt][Ff][Ii][Ll][Ee][Ss]/
+[Pp][Rr][Ee][Vv][Ii][Ee][Ww][Ii][Nn][Dd][Oo][Ww][Ss]/
+[Pp][Uu][Bb][Ll][Ii][Cc][Hh][Oo][Uu][Tt]/
+
+
+# Visual Studio 2017
+.vs2017/
+# .suo files
+*.[Cc]ache
+*.log
+
+# Rider
+.idea/
+.idea/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Mono Auto Generated Files
+mono_crash.*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# VS Code folders
+.vscode/
+.DS_Store
+__pycache__
+
+# User-specific files
+*.suo
+*.user
+*.suo
+*.user

@@ -6,28 +6,34 @@ Este proyecto de base de datos SQL Server está diseñado para el desarrollo de 
 
 ## Descripción general 
 
-### Servidor
+La base de datos LabDev es una base de datos de prueba que contiene información de clientes, productos y facturas.
 
-* Nombre: localhost:1433
+## Usuarios
 
-#### Usuario Owner
+Los usuarios de la base de datos se dividen en tres categorías:
+
+#### Usuario Administrador (owner)
 
 * User: sa
 * Password: abc123ABC
 
-### Database: LabDev
+Server=localhost;Database=LabDev;User Id=sa;Password=abc123ABC;Encrypt=False;
 
 #### Usuario para desarrollo
 
 * User: developer
 * Password: abc123ABC
 
+Server=localhost;Database=LabDev;User Id=developer;Password=abc123ABC;Encrypt=False;
+
 #### Usuario para cliente backend
 
 * User: client
 * Password: abc123ABC
 
-## Objetos de base de datos
+Server=localhost;Database=LabDev;User Id=client;Password=abc123ABC;Encrypt=False;
+
+## Objetos de base de datos LabDev
 
 ### Tablas
 
