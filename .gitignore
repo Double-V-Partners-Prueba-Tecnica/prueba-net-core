@@ -1,0 +1,11 @@
+./db/data
+db/data
+
+./db/data/
+/db/data/
+
+./db/data/*
+/db/data/*
+
+# Ignorar todo lo de data
+db/data/**

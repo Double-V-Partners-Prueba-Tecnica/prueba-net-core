@@ -1,0 +1,63 @@
+version: "3"
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server
+    environment:
+      SA_PASSWORD: "abc123ABC"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    networks:
+      - mynetwork
+    volumes:
+      - ./db/data/mssql:/var/opt/mssql/
+      - ./db/data/backups:/backups
+    restart: always
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P ${Sa_Password:-password123} -Q 'SELECT 1' || exit 1",
+        ]
+      interval: 10s
+      retries: 10
+      start_period: 10s
+      timeout: 3s
+
+  db.configurator:
+    image: mcr.microsoft.com/mssql/server
+    depends_on:
+      - db
+    networks:
+      - mynetwork
+    volumes:
+      - ./db/src:/docker-entrypoint-initdb.d
+    command: >
+      /bin/bash -c 'echo "Waiting for database to be ready..." && sleep 10 && echo "Configuring database..." && /opt/mssql-tools/bin/sqlcmd -S db -U sa -P abc123ABC -d master -i /docker-entrypoint-initdb.d/init.sql && /opt/mssql-tools/bin/sqlcmd -S db -U sa -P abc123ABC -d master -i /docker-entrypoint-initdb.d/config.sql && /opt/mssql-tools/bin/sqlcmd -S db -U sa -P abc123ABC -d master -i /docker-entrypoint-initdb.d/ddl.sql && /opt/mssql-tools/bin/sqlcmd -S db -U sa -P abc123ABC -d master -i /docker-entrypoint-initdb.d/dml.sql && echo "Database configured"'
+    restart: on-failure
+
+  # api:
+  #   build:
+  #     context: ./api
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "5000:80"
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - mynetwork
+
+  # app:
+  #   build:
+  #     context: ./app
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "4200:4200"
+  #   depends_on:
+  #     - server
+  #   networks:
+  #     - mynetwork
+
+networks:
+  mynetwork:
+# Para crear aplicaciones usar el comando: docker-compose up -d --build
