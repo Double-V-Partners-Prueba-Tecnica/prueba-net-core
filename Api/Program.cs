@@ -43,6 +43,14 @@ builder.Services.AddScoped<ITblFacturaService, TblFacturaServiceImpl>();
 
 var app = builder.Build();
 
+app.UseCors(options =>
+{
+    options.AllowAnyOrigin(); // Puedes configurar aquí las políticas específicas de origen.
+    options.AllowAnyMethod();
+    options.AllowAnyHeader();
+});
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

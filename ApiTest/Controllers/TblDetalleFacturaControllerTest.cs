@@ -25,7 +25,7 @@ namespace ApiTest.Controllers
         }
 
 
-
+        // 1
         [Fact]
         public void Create_Ok()
         {
@@ -45,6 +45,7 @@ namespace ApiTest.Controllers
             var item = Assert.IsType<TblDetalleFactura>(okResult.Value);
         }
 
+        // 2
         [Fact]
         public void Get_Ok()
         {
@@ -52,6 +53,7 @@ namespace ApiTest.Controllers
             Assert.IsType<OkObjectResult>(result);
         }
 
+        // 3
         [Fact]
         public void Get_Quantity()
         {
@@ -61,6 +63,26 @@ namespace ApiTest.Controllers
             Assert.True(items.Count > 0);
         }
 
+        // 4
+        [Fact]
+        public void Get_ById_NotFound()
+        {
+            int id = 0; // Asume que no existe un detalle de factura con ID 0
+            var result = _controller.Get(id);
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+
+        // 5
+        [Fact]
+        public void Get_ById_Ok()
+        {
+            int id = 1; // Asume que existe un detalle de factura con ID 1 
+            var result = _controller.Get(id);
+            Assert.IsType<OkObjectResult>(result);
+        }
+
+        // 6
         [Fact]
         public void Get_DeletedAt()
         {
@@ -72,23 +94,5 @@ namespace ApiTest.Controllers
                 Assert.Null(item.DeletedAt);
             }
         }
-
-        [Fact]
-        public void Get_ById_Ok()
-        {
-            int id = 1; // Asume que existe un detalle de factura con ID 1
-            var result = _controller.Get(id);
-            Assert.IsType<OkObjectResult>(result);
-        }
-
-        [Fact]
-        public void Get_ById_NotFound()
-        {
-            int id = 0; // Asume que no existe un detalle de factura con ID 0
-            var result = _controller.Get(id);
-            Assert.IsType<NotFoundResult>(result);
-        }
-
-
     }
 }

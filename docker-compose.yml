@@ -10,8 +10,8 @@ services:
     networks:
       - mynetwork
     volumes:
-      - ./db/data/mssql:/var/opt/mssql/
-      - ./db/data/backups:/backups
+      - ./Db/data/mssql:/var/opt/mssql/
+      - ./Db/data/backups:/backups
     restart: always
     healthcheck:
       test:

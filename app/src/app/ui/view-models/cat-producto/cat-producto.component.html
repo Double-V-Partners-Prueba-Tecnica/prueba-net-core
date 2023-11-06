@@ -1,0 +1,23 @@
+<div class="cat-producto">
+  <h1>CatProductos</h1>
+  <ul *ngIf="datos">
+    <li *ngFor="let catProducto of datos">
+      <div class="card">
+        <h2>Producto ID: {{ catProducto.id }}</h2>
+        <p>Nombre del Producto: {{ catProducto.nombreProducto }}</p>
+        <p>Imagen: <img [src]="catProducto.imagenProducto" alt="Imagen del Producto" /></p>
+        <p>Precio: {{ catProducto.precio | currency:'USD':'symbol':'1.2-2' }}</p>
+        <p>Extensión: {{ catProducto.ext }}</p>
+        <p>Fecha de Creación: {{ catProducto.createdAt | date:'medium' }}</p>
+        <p>Fecha de Actualización: {{ catProducto.updatedAt | date:'medium' }}</p>
+        <p *ngIf="catProducto.deletedAt">
+          Fecha de Eliminación: {{ catProducto.deletedAt | date:'medium' }}
+        </p>
+      </div>
+    </li>
+  </ul>
+  <div *ngIf="!datos" class="loading-indicator">
+    <!-- Puedes agregar aquí un indicador de carga si lo deseas -->
+    <p>Cargando datos de CatProductos...</p>
+  </div>
+</div>
