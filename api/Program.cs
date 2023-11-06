@@ -7,7 +7,7 @@ using Api.Services.TblFacturaService;
 
 // Import Repository
 using Api.Repository.Contract;
-using Api.Repository.Implement;
+using Api.Repository.Implement.CatProductoRepository;
 
 // Import Models
 using Api.Models;

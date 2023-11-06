@@ -1,7 +1,6 @@
 using Api.Controllers;
 using Api.Models;
-using Api.Repository.Contract;
-using Api.Repository.Implement;
+using Api.Repository.Implement.CatProductoRepository;
 using Api.Services.CatProductoService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -43,6 +42,19 @@ namespace ApiTest.Controllers
             var items = Assert.IsType<List<CatProducto>>(okResult.Value);
             Assert.True(items.Count > 0);
         }
+
+        // Prueba que evalua si DeletedAt es null en todos los registros que se obtienen del metodo Get()
+        [Fact]
+        public void Get_DeletedAt()
+        {
+            var result = _controller.Get();
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var items = Assert.IsType<List<CatProducto>>(okResult.Value);
+            foreach (var item in items)
+            {
+                Assert.Null(item.DeletedAt);
+            }
+        } 
 
         // Metodo Get(int id)
 

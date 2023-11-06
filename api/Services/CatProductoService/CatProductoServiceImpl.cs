@@ -1,6 +1,6 @@
 using Api.Models;
 using Api.Repository.Contract;
-using Api.Repository.Implement;
+using Api.Repository.Implement.CatProductoRepository;
 
 namespace Api.Services.CatProductoService
 {
