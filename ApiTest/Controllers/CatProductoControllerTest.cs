@@ -14,7 +14,7 @@ namespace ApiTest.Controllers
         private readonly ICatProductoRepository _repository;
         public CatProductoControllerTest()
         {
-            _repository = new CatProductoRepository(
+            _repository = new CatProductoRepositoryImpl(
                 new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build()

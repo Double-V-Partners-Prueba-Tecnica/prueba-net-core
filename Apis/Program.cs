@@ -24,7 +24,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Inject Repository
-builder.Services.AddScoped<ICatProductoRepository, CatProductoRepository>();
+builder.Services.AddScoped<ICatProductoRepository, CatProductoRepositoryImpl>();
 // TODO: Add more repository
 // End Inject Repository
 
