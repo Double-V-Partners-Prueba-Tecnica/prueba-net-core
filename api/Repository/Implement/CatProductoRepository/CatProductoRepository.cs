@@ -1,9 +1,8 @@
 using Api.Models;
-using Api.Repository.Contract;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
-namespace Api.Repository.Implement
+namespace Api.Repository.Implement.CatProductoRepository
 {
     public class CatProductoRepository : ICatProductoRepository
     {
@@ -34,9 +33,25 @@ namespace Api.Repository.Implement
             }
         }
 
-        public Task<CatProducto> GetByIdAsync(int id)
+        public async Task<CatProducto?> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            using (var conn = new SqlConnection(_strConn))
+            {
+                using (var cmd = new SqlCommand("spGetByIdCatProducto", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    conn.Open();
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            return MapToValue(reader);
+                        }
+                        return null;
+                    }
+                }
+            }
         }
 
 
@@ -49,10 +64,10 @@ namespace Api.Repository.Implement
                 NombreProducto = (string)reader["NombreProducto"],
                 ImagenProducto = (string)reader["ImagenProducto"],
                 Precio = (decimal)reader["Precio"],
-                Descripcion = (string)reader["Descripcion"],
+                Ext = (string)reader["Ext"],
                 CreatedAt = (DateTime)reader["CreatedAt"],
                 UpdatedAt = (DateTime)reader["UpdatedAt"],
-                DeletedAt = (DateTime?)reader["DeletedAt"]
+                DeletedAt = (reader["DeletedAt"] == DBNull.Value) ? null : (DateTime?)reader["DeletedAt"]
             };
         }
     }
