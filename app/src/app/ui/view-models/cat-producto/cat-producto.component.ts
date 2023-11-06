@@ -11,14 +11,12 @@ export class CatProductoComponent implements OnInit {
   constructor(private _catProductoUseCase: CatProductoUseCases) {}
   response$;
   datos;
+  isLoading = true;
   ngOnInit(): void {
-    this.response$ = this._catProductoUseCase
-      .getAllCatProductos()
-      .subscribe((catProductos) => {
-        console.log(catProductos);
-        (data) => {
-          this.datos = data;
-        };
-      });
+    this.response$ = this._catProductoUseCase.getAllCatProductos();
+    this.response$.subscribe((data) => {
+      this.datos = data;
+      this.isLoading = false;
+    });
   }
 }
