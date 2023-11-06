@@ -1,55 +1,41 @@
 using Api.Models;
+using Api.Repository.Implement.TblClienteRepository;
 
 namespace Api.Services.TblClienteService
 {
     public class TblClienteServiceImpl : ITblClienteService
     {
-        private readonly List<TblCliente> _tblClientes = new List<TblCliente>()
+        private readonly ITblClienteRepository _tblClienteRepository;
+
+        public TblClienteServiceImpl(ITblClienteRepository tblClienteRepository)
         {
-            new TblCliente(){
-                Id = 1,
-                RazonSocial = "Nombre 1",
-                IdTipoCliente = 1,
-                FechaDeCreacion = DateTime.Now,
-                RFC = "RFC 1",
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now,
-                DeletedAt = null,
-                TipoCliente = new CatTipoCliente(){
-                    Id = 1,
-                    TipoCliente = "Tipo Cliente 1",
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    DeletedAt = null,
-                },
-            },
-            new TblCliente(){
-                Id = 2,
-                RazonSocial = "Nombre 2",
-                IdTipoCliente = 2,
-                FechaDeCreacion = DateTime.Now,
-                RFC = "RFC 2",
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now,
-                DeletedAt = null,
-                TipoCliente = new CatTipoCliente(){
-                    Id = 2,
-                    TipoCliente = "Tipo Cliente 2",
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    DeletedAt = null,
-                },
-            },
-        };
+            _tblClienteRepository = tblClienteRepository;
+        }
 
         public IEnumerable<TblCliente> Get()
         {
-            return _tblClientes;
+            return _tblClienteRepository.GetAll().Result;
         }
 
         public TblCliente? Get(int id)
         {
-            return _tblClientes.Find(x => x.Id == id);
+            return _tblClienteRepository.GetById(id).Result;
         }
+
+        public TblCliente? Create(TblCliente tblCliente)
+        {
+            return _tblClienteRepository.Create(tblCliente).Result;
+        }
+
+        public TblCliente? Update(TblCliente tblCliente)
+        {
+            return _tblClienteRepository.Update(tblCliente).Result;
+        }
+
+        public TblCliente? Delete(int id)
+        {
+            return _tblClienteRepository.Delete(id).Result;
+        }
+        
     }
 }

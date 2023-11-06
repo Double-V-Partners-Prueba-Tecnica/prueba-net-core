@@ -7,7 +7,7 @@ namespace Api.Models
         // Properties
         public required string NombreProducto { get; set; }
         public required string ImagenProducto { get; set; }
-        public decimal Precio { get; set; }
+        public required decimal Precio { get; set; }
         public required string Ext { get; set; }
         // Timestamps
         public DateTime CreatedAt { get; set; }

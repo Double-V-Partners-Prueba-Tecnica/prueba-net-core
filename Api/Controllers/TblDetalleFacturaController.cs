@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 // Imports Project
 using Api.Services.TblDetalleFacturaService;
+using Api.Models;
 
 namespace Api.Controllers
 {
@@ -27,5 +28,16 @@ namespace Api.Controllers
 
             return Ok(catTipoCliente);
         }
+
+        [HttpPost]
+        public IActionResult Create(TblDetalleFactura catTipoCliente)
+        {
+            var result = _service.Create(catTipoCliente);
+            if (result == null)
+                return BadRequest();
+
+            return Ok(result);
+        }
+
     }
 }

@@ -2,21 +2,21 @@ using Api.Models;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
-namespace Api.Repository.Implement.CatProductoRepository
+namespace Api.Repository.Implement.CatTipoClienteRepository
 {
-    public class CatProductoRepositoryImpl : ICatProductoRepository
+    public class CatTipoClienteRepositoryImpl : ICatTipoClienteRepository
     {
         private readonly string _strConn;
-        public CatProductoRepositoryImpl(IConfiguration configuration)
+        public CatTipoClienteRepositoryImpl(IConfiguration configuration)
         {
             _strConn = configuration?.GetConnectionString("DefaultConnection") ?? throw new ArgumentNullException(nameof(configuration));
         }
 
-        public async Task<CatProducto?> Create(CatProducto entity)
+        public async Task<CatTipoCliente?> Create(CatTipoCliente entity)
         {
             using (var conn = new SqlConnection(_strConn))
             {
-                using (var cmd = new SqlCommand("spCreateCatProducto", conn))
+                using (var cmd = new SqlCommand("spCreateCatTipoCliente", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddRange(MapToParameters(entity));
@@ -33,11 +33,11 @@ namespace Api.Repository.Implement.CatProductoRepository
             }
         }
 
-        public async Task<CatProducto?> Delete(int id)
+        public async Task<CatTipoCliente?> Delete(int id)
         {
             using (var conn = new SqlConnection(_strConn))
             {
-                using (var cmd = new SqlCommand("spDeleteCatProducto", conn))
+                using (var cmd = new SqlCommand("spDeleteCatTipoCliente", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Id", id);
@@ -54,17 +54,17 @@ namespace Api.Repository.Implement.CatProductoRepository
             }
         }
 
-        public async Task<IEnumerable<CatProducto>> GetAll()
+        public async Task<IEnumerable<CatTipoCliente>> GetAll()
         {
             using (var conn = new SqlConnection(_strConn))
             {
-                using (var cmd = new SqlCommand("spGetAllCatProducto", conn))
+                using (var cmd = new SqlCommand("spGetAllCatTipoCliente", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     conn.Open();
                     using (var reader = await cmd.ExecuteReaderAsync())
                     {
-                        var list = new List<CatProducto>();
+                        var list = new List<CatTipoCliente>();
                         while (await reader.ReadAsync())
                         {
                             list.Add(MapToValue(reader));
@@ -75,11 +75,11 @@ namespace Api.Repository.Implement.CatProductoRepository
             }
         }
 
-        public async Task<CatProducto?> GetById(int id)
+        public async Task<CatTipoCliente?> GetById(int id)
         {
             using (var conn = new SqlConnection(_strConn))
             {
-                using (var cmd = new SqlCommand("spGetByIdCatProducto", conn))
+                using (var cmd = new SqlCommand("spGetByIdCatTipoCliente", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Id", id);
@@ -96,11 +96,11 @@ namespace Api.Repository.Implement.CatProductoRepository
             }
         }
 
-        public async Task<CatProducto?> Update(CatProducto entity)
+        public async Task<CatTipoCliente?> Update(CatTipoCliente entity)
         {
             using (var conn = new SqlConnection(_strConn))
             {
-                using (var cmd = new SqlCommand("spUpdateCatProducto", conn))
+                using (var cmd = new SqlCommand("spUpdateCatTipoCliente", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddRange(MapToParameters(entity));
@@ -109,8 +109,6 @@ namespace Api.Repository.Implement.CatProductoRepository
                     {
                         if (await reader.ReadAsync())
                         {
-                            Console.WriteLine("El valor de reader es: ");
-                            Console.WriteLine(reader);
                             return MapToValue(reader);
                         }
                         return null;
@@ -119,33 +117,26 @@ namespace Api.Repository.Implement.CatProductoRepository
             }
         }
 
-        // Map to Value
-        private CatProducto MapToValue(SqlDataReader reader)
-        {
-            return new CatProducto()
-            {
-                Id = (int)reader["Id"],
-                NombreProducto = (string)reader["NombreProducto"],
-                ImagenProducto = (string)reader["ImagenProducto"],
-                Precio = (decimal)reader["Precio"],
-                Ext = (string)reader["Ext"],
-                CreatedAt = (DateTime)reader["CreatedAt"],
-                UpdatedAt = (DateTime)reader["UpdatedAt"],
-                DeletedAt = (reader["DeletedAt"] == DBNull.Value) ? null : (DateTime?)reader["DeletedAt"]
-            };
-        }
-
-        // Map to Parameters
-        private SqlParameter[] MapToParameters(CatProducto entity)
+        private SqlParameter[] MapToParameters(CatTipoCliente entity)
         {
             return new SqlParameter[]
             {
-                new ("@Id", entity.Id),
-                new ("@NombreProducto", entity.NombreProducto),
-                new ("@ImagenProducto", entity.ImagenProducto),
-                new ("@Precio", entity.Precio),
-                new ("@Ext", entity.Ext),
+                new ("@Id", entity.Id), // Para actualizar y eliminar
+                new ("@TipoCliente", entity.TipoCliente),
+            };
+        }
+
+        private CatTipoCliente MapToValue(SqlDataReader reader)
+        {
+            return new CatTipoCliente()
+            {
+                Id = (int)reader["Id"],
+                TipoCliente = (string)reader["TipoCliente"],
+                CreatedAt = (DateTime)reader["CreatedAt"],
+                UpdatedAt = (DateTime)reader["UpdatedAt"],
+                DeletedAt = reader["DeletedAt"] as DateTime?,
             };
         }
     }
+
 }

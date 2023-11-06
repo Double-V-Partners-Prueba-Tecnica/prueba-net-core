@@ -2,10 +2,8 @@ namespace Api.Repository.Contract
 {
     public interface IGenericRepository<T> where T : class
     {
-        Task<IEnumerable<T>> GetAllAsync();
-        Task<T?> GetByIdAsync(int id);
-        Task<T?> CreateAsync(T entity);
-        Task<T?> UpdateAsync(T entity);
-        Task<T?> DeleteAsync(int id);
+        Task<IEnumerable<T>> GetAll();
+        Task<T?> GetById(int id);
+        Task<T?> Create(T entity);
     }
 }

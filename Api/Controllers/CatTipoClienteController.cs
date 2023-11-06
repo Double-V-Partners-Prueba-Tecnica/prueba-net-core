@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 // Imports Project
 using Api.Services.CatTipoClienteService;
+using Api.Models;
 
 namespace Api.Controllers
 {
@@ -27,5 +28,36 @@ namespace Api.Controllers
 
             return Ok(catTipoCliente);
         }
+
+        [HttpPost]
+        public IActionResult Create(CatTipoCliente catTipoCliente)
+        {
+            var result = _service.Create(catTipoCliente);
+            if (result == null)
+                return BadRequest();
+
+            return Ok(result);
+        }
+
+        [HttpPut]
+        public IActionResult Update(CatTipoCliente catTipoCliente)
+        {
+            var result = _service.Update(catTipoCliente);
+            if (result == null)
+                return BadRequest();
+
+            return Ok(result);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var result = _service.Delete(id);
+            if (result == null)
+                return BadRequest();
+
+            return Ok(result);
+        }
+        
     }
 }

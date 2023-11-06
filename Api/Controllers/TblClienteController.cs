@@ -2,15 +2,16 @@
 using Microsoft.AspNetCore.Mvc;
 // Imports Project
 using Api.Services.TblClienteService;
+using Api.Models;
 
 namespace Api.Controllers
 {
     [Route("Api/[controller]")]
     [ApiController]
-    public class TblClienteClinteController : ControllerBase
+    public class TblClienteController : ControllerBase
     {
         private readonly ITblClienteService _service;
-        public TblClienteClinteController(ITblClienteService service)
+        public TblClienteController(ITblClienteService service)
         {
             _service = service;
         }
@@ -26,6 +27,36 @@ namespace Api.Controllers
                 return NotFound();
 
             return Ok(catTipoCliente);
+        }
+
+        [HttpPost]
+        public IActionResult Create(TblCliente catTipoCliente)
+        {
+            var result = _service.Create(catTipoCliente);
+            if (result == null)
+                return BadRequest();
+
+            return Ok(result);
+        }
+
+        [HttpPut]
+        public IActionResult Update(TblCliente catTipoCliente)
+        {
+            var result = _service.Update(catTipoCliente);
+            if (result == null)
+                return BadRequest();
+
+            return Ok(result);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var result = _service.Delete(id);
+            if (result == null)
+                return BadRequest();
+
+            return Ok(result);
         }
     }
 }

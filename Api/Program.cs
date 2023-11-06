@@ -8,11 +8,13 @@ using Api.Services.TblFacturaService;
 // Import Repository
 using Api.Repository.Contract;
 using Api.Repository.Implement.CatProductoRepository;
+using Api.Repository.Implement.CatTipoClienteRepository;
+using Api.Repository.Implement.TblClienteRepository;
+using Api.Repository.Implement.TblDetalleFacturaRepository;
+using Api.Repository.Implement.TblFacturaRepository;
 
 // Import Models
 using Api.Models;
-
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +27,10 @@ builder.Services.AddSwaggerGen();
 
 // Inject Repository
 builder.Services.AddScoped<ICatProductoRepository, CatProductoRepositoryImpl>();
-// TODO: Add more repository
+builder.Services.AddScoped<ICatTipoClienteRepository, CatTipoClienteRepositoryImpl>();
+builder.Services.AddScoped<ITblClienteRepository, TblClienteRepositoryImpl>();
+builder.Services.AddScoped<ITblDetalleFacturaRepository, TblDetalleFacturaRepositoryImpl>();
+builder.Services.AddScoped<ITblFacturaRepository, TblFacturaRepositoryImpl>();
 // End Inject Repository
 
 // Inject Services

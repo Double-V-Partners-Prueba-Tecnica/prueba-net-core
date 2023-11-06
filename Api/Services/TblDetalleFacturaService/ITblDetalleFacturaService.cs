@@ -8,5 +8,7 @@ namespace Api.Services.TblDetalleFacturaService
         public IEnumerable<TblDetalleFactura> Get();
         // Get By Id
         public TblDetalleFactura? Get(int id);
+        // Create
+        public TblDetalleFactura? Create(TblDetalleFactura tblDetalleFactura);
     }
 }

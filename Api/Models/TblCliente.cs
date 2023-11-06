@@ -5,16 +5,16 @@ namespace Api.Models
         // Primary Key
         public int Id { get; set; }
         // Properties
-        public required string RazonSocial { get; set; }
-        public int IdTipoCliente { get; set; }
+        public required string? RazonSocial { get; set; }
+        public required int IdTipoCliente { get; set; }
+        public required string? RFC { get; set; }
         public DateTime FechaDeCreacion { get; set; }
-        public required string RFC { get; set; }
         // Timestamps
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
         // Foreign Keys
-        public required CatTipoCliente TipoCliente { get; set; }
+        public CatTipoCliente? TipoCliente { get; set; }
     }
 
 }

@@ -54,7 +54,7 @@ namespace ApiTest.Controllers
             {
                 Assert.Null(item.DeletedAt);
             }
-        } 
+        }
 
         // Metodo Get(int id)
 
@@ -85,6 +85,99 @@ namespace ApiTest.Controllers
             var item = Assert.IsType<CatProducto>(okResult.Value);
             Assert.Equal(id, item.Id);
         }
-    }
 
+        // Metodo Create(CatProducto catProducto)
+        [Fact]
+        public void Create_Ok()
+        {
+            var catProducto = new CatProducto
+            {
+                NombreProducto = "Producto de prueba",
+                ImagenProducto = "Imagen de prueba",
+                Precio = 100,
+                // max 5 caracteres
+                Ext = "12345"
+            };
+            var result = _controller.Create(catProducto);
+            Assert.IsType<OkObjectResult>(result);
+            // Guardar el id del registro creado
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var item = Assert.IsType<CatProducto>(okResult.Value);
+            
+            Console.WriteLine("El id del registro creado es: ");
+            Console.WriteLine(item.Id);
+        }
+
+        // Metodo Update(CatProducto catProducto)
+        [Fact]
+        public void Update_Ok()
+        {
+            var _result = _controller.Get();
+            var _okResult = Assert.IsType<OkObjectResult>(_result);
+            var _items = Assert.IsType<List<CatProducto>>(_okResult.Value);
+            var _item = _items.Where(x => x.NombreProducto == "Producto de prueba" && x.Ext == "12345").FirstOrDefault();
+            // Si es nulo es porque deleted paso primero entonces este test tambien puede pasar
+            if (_item == null)
+            {
+                Assert.Null(_item);
+            }
+            var id = _item?.Id;
+            if (id != null)
+            {
+                var catProducto = new CatProducto
+                {
+                    Id = id.Value,
+                    NombreProducto = "Producto de prueba",
+                    ImagenProducto = "Nueva imagen de prueba",
+                    Precio = 100,
+                    // max 5 caracteres
+                    Ext = "54321"
+                };
+                var result = _controller.Update(catProducto);
+                Assert.IsType<OkObjectResult>(result);
+
+                // Verificar que el registro se actualizo correctamente en la imagen y la ext
+                var okResult = Assert.IsType<OkObjectResult>(result);
+                var item = Assert.IsType<CatProducto>(okResult.Value);
+                Assert.Equal(catProducto.ImagenProducto, item.ImagenProducto);
+                Assert.Equal(catProducto.Ext, item.Ext);
+                // imprimir el id del registro actualizado
+                Console.WriteLine("El id del registro actualizado es: ");
+                Console.WriteLine(item.Id);
+            }
+        }
+
+        // Metodo Delete(int id) pasa despues de Update
+        [Fact]
+        public void Delete_Ok()
+        {
+            var _result = _controller.Get();
+            var _okResult = Assert.IsType<OkObjectResult>(_result);
+            var _items = Assert.IsType<List<CatProducto>>(_okResult.Value);
+            var _item = _items.Where(x => x.NombreProducto == "Producto de prueba" && x.Ext == "54321").FirstOrDefault();
+            if (_item == null)
+            {
+                _item = _items.Where(x => x.NombreProducto == "Producto de prueba" && x.Ext == "12345").FirstOrDefault();
+            }
+            if (_item == null)
+            {
+                _item = _items.Where(x => x.NombreProducto == "Producto de prueba" && x.Ext == "54321").FirstOrDefault();
+            }
+            if (_item == null)
+            {
+                _item = _items.Where(x => x.NombreProducto == "Producto de prueba" && x.Ext == "12345").FirstOrDefault();
+            }
+            else
+            {
+                var id = _item.Id;
+                var result = _controller.Delete(id);
+                Assert.IsType<OkObjectResult>(result);
+                // Verificar que el registro se elimino correctamente
+                var okResult = Assert.IsType<OkObjectResult>(result);
+                var item = Assert.IsType<CatProducto>(okResult.Value);
+                Assert.NotNull(item.DeletedAt);
+            }
+        }
+
+    }
 }

@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 // Imports Project
 using Api.Services.CatProductoService;
+using Api.Models;
+
 
 
 namespace Api.Controllers
@@ -26,6 +28,36 @@ namespace Api.Controllers
                 return NotFound();
 
             return Ok(catProducto);
+        }
+
+        [HttpPost]
+        public IActionResult Create(CatProducto catProducto)
+        {
+            var result = _service.Create(catProducto);
+            if (result == null)
+                return BadRequest();
+
+            return Ok(result);
+        }
+
+        [HttpPut]
+        public IActionResult Update(CatProducto catProducto)
+        {
+            var result = _service.Update(catProducto);
+            if (result == null)
+                return BadRequest();
+
+            return Ok(result);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var result = _service.Delete(id);
+            if (result == null)
+                return BadRequest();
+
+            return Ok(result);
         }
     }
 }
