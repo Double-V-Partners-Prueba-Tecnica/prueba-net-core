@@ -63,7 +63,7 @@ El usuario cliente no puede acceder a las tablas directamente.
 |    | NombreProducto | varchar(50)   | ❌        |
 |    | ImagenProducto | varchar(50)   | ✅        |
 |    | Precio         | decimal(18,2) | ❌        |
-|    | Descripcion    | varchar(50)   | ✅        |
+|    | Ext            | varchar(5)    | ❌        |
 
 #### TblDetalleFactura
 

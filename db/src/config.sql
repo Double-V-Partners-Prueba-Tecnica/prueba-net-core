@@ -18,6 +18,8 @@ BEGIN
     ALTER ROLE db_datawriter ADD MEMBER developer;
     -- Permite crear, modificar y eliminar tablas
     ALTER ROLE db_ddladmin ADD MEMBER developer;
+    -- Permite ejecutar todos los procedimientos almacenados
+    GRANT EXECUTE TO developer;
 
     -- Cliente
     -- Crear un usuario cliente que solo pueda ejecutar procedimientos almacenados

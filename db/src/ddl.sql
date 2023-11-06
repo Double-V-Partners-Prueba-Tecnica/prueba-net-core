@@ -40,7 +40,7 @@ BEGIN
         NombreProducto varchar(50) NOT NULL,
         ImagenProducto varchar(100) NULL,
         Precio decimal(18,2) NOT NULL,
-        Descripcion varchar(50) NULL,
+        Ext varchar(5) NOT NULL,
         CreatedAt datetime DEFAULT GETDATE(),
         UpdatedAt datetime DEFAULT GETDATE(),
         DeletedAt datetime
@@ -86,3 +86,33 @@ BEGIN
 END
 
 PRINT 'Tablas de la base de datos LabDev creadas satisfactoriamente.';
+
+-- spGetAllCatProducto
+IF EXISTS (SELECT * FROM sysobjects WHERE name='spGetAllCatProducto' and xtype='P')
+BEGIN
+    DROP PROCEDURE spGetAllCatProducto;
+END
+GO
+CREATE PROCEDURE spGetAllCatProducto
+AS
+BEGIN
+    SELECT * FROM CatProducto WHERE DeletedAt IS NULL;
+END
+GO
+-- EXEC spGetAllCatProducto;
+
+
+-- spGetByIdCatProducto
+IF EXISTS (SELECT * FROM sysobjects WHERE name='spGetByIdCatProducto' and xtype='P')
+BEGIN
+    DROP PROCEDURE spGetByIdCatProducto;
+END
+GO
+CREATE PROCEDURE spGetByIdCatProducto
+    @Id int
+AS
+BEGIN
+    SELECT * FROM CatProducto WHERE Id = @Id AND DeletedAt IS NULL;
+END
+GO
+-- EXEC spGetByIdCatProducto @Id = 1;
