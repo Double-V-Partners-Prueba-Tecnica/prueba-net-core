@@ -1,41 +1,26 @@
 using Api.Models;
+using Api.Repository.Contract;
+using Api.Repository.Implement;
 
 namespace Api.Services.CatProductoService
 {
     public class CatProductoServiceImpl : ICatProductoService
     {
-        private readonly List<CatProducto> _catProductos = new List<CatProducto>()
+        private readonly ICatProductoRepository _repository;
+
+        public CatProductoServiceImpl(ICatProductoRepository repository)
         {
-            new CatProducto(){
-                Id = 1,
-                NombreProducto = "Producto 1",
-                ImagenProducto = "https://via.placeholder.com/150",
-                Precio = 100,
-                Descripcion = "Descripcion del producto 1",
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now,
-                DeletedAt = null,
-            },
-            new CatProducto(){
-                Id = 2,
-                NombreProducto = "Producto 2",
-                ImagenProducto = "https://via.placeholder.com/150",
-                Precio = 200,
-                Descripcion = "Descripcion del producto 2",
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now,
-                DeletedAt = null,
-            },
-        };
+            _repository = repository;
+        }
 
         public IEnumerable<CatProducto> Get()
         {
-            return _catProductos;
+            return _repository.GetAllAsync().Result;
         }
 
         public CatProducto? Get(int id)
         {
-            return _catProductos.Find(x => x.Id == id);
+            return _repository.GetByIdAsync(id).Result;
         }
     }
 }

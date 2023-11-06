@@ -1,7 +1,10 @@
 using Api.Controllers;
 using Api.Models;
+using Api.Repository.Contract;
+using Api.Repository.Implement;
 using Api.Services.CatProductoService;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace ApiTest.Controllers
 {
@@ -9,9 +12,15 @@ namespace ApiTest.Controllers
     {
         private readonly CatProductoController _controller;
         private readonly ICatProductoService _service;
+        private readonly ICatProductoRepository _repository;
         public CatProductoControllerTest()
         {
-            _service = new CatProductoServiceImpl();
+            _repository = new CatProductoRepository(
+                new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build()
+            );
+            _service = new CatProductoServiceImpl(_repository);
             _controller = new CatProductoController(_service);
         }
 
@@ -65,4 +74,5 @@ namespace ApiTest.Controllers
             Assert.Equal(id, item.Id);
         }
     }
+
 }

@@ -61,3 +61,6 @@ services:
 networks:
   mynetwork:
 # Para crear aplicaciones usar el comando: docker-compose up -d --build
+
+# Comando Rapido para REINICIAR:
+# docker stop prueba-net-core-db.configurator-1 && docker rm prueba-net-core-db.configurator-1 && docker stop prueba-net-core-db-1 && docker rm prueba-net-core-db-1 && rm -rf db/data && docker-compose up -d --build

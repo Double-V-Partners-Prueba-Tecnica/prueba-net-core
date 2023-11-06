@@ -6,6 +6,11 @@ using Api.Services.TblDetalleFacturaService;
 using Api.Services.TblFacturaService;
 
 // Import Repository
+using Api.Repository.Contract;
+using Api.Repository.Implement;
+
+// Import Models
+using Api.Models;
 
 
 
@@ -18,6 +23,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Inject Repository
+builder.Services.AddScoped<ICatProductoRepository, CatProductoRepository>();
+// TODO: Add more repository
+// End Inject Repository
+
 // Inject Services
 builder.Services.AddScoped<ICatProductoService, CatProductoServiceImpl>();
 builder.Services.AddScoped<ICatTipoClienteService, CatTipoClienteServiceImpl>();
@@ -25,11 +35,6 @@ builder.Services.AddScoped<ITblClienteService, TblClienteServiceImpl>();
 builder.Services.AddScoped<ITblDetalleFacturaService, TblDetalleFacturaServiceImpl>();
 builder.Services.AddScoped<ITblFacturaService, TblFacturaServiceImpl>();
 // End Inject Services
-
-// Inject Repository
-builder.Services.AddScoped<ICatProductoRepository, CatProductoRepositoryImpl>();
-// TODO: Add more repository
-// End Inject Repository
 
 var app = builder.Build();
 
