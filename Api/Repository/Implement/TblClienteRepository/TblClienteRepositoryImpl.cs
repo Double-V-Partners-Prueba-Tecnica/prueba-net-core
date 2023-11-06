@@ -46,7 +46,7 @@ namespace Api.Repository.Implement.TblClienteRepository
                     {
                         if (await reader.ReadAsync())
                         {
-
+                            return MapToValue(reader);
                         }
                         return null;
                     }

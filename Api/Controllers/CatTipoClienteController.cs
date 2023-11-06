@@ -8,10 +8,10 @@ namespace Api.Controllers
 {
     [Route("Api/[controller]")]
     [ApiController]
-    public class CatTipoClinteController : ControllerBase
+    public class CatTipoClienteController : ControllerBase
     {
         private readonly ICatTipoClienteService _service;
-        public CatTipoClinteController(ICatTipoClienteService service)
+        public CatTipoClienteController(ICatTipoClienteService service)
         {
             _service = service;
         }

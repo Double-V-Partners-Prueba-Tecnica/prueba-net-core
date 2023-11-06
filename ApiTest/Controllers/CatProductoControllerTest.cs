@@ -103,9 +103,6 @@ namespace ApiTest.Controllers
             // Guardar el id del registro creado
             var okResult = Assert.IsType<OkObjectResult>(result);
             var item = Assert.IsType<CatProducto>(okResult.Value);
-            
-            Console.WriteLine("El id del registro creado es: ");
-            Console.WriteLine(item.Id);
         }
 
         // Metodo Update(CatProducto catProducto)
@@ -141,9 +138,6 @@ namespace ApiTest.Controllers
                 var item = Assert.IsType<CatProducto>(okResult.Value);
                 Assert.Equal(catProducto.ImagenProducto, item.ImagenProducto);
                 Assert.Equal(catProducto.Ext, item.Ext);
-                // imprimir el id del registro actualizado
-                Console.WriteLine("El id del registro actualizado es: ");
-                Console.WriteLine(item.Id);
             }
         }
 
@@ -159,15 +153,7 @@ namespace ApiTest.Controllers
             {
                 _item = _items.Where(x => x.NombreProducto == "Producto de prueba" && x.Ext == "12345").FirstOrDefault();
             }
-            if (_item == null)
-            {
-                _item = _items.Where(x => x.NombreProducto == "Producto de prueba" && x.Ext == "54321").FirstOrDefault();
-            }
-            if (_item == null)
-            {
-                _item = _items.Where(x => x.NombreProducto == "Producto de prueba" && x.Ext == "12345").FirstOrDefault();
-            }
-            else
+            if (_item != null)
             {
                 var id = _item.Id;
                 var result = _controller.Delete(id);

@@ -109,8 +109,6 @@ namespace Api.Repository.Implement.CatProductoRepository
                     {
                         if (await reader.ReadAsync())
                         {
-                            Console.WriteLine("El valor de reader es: ");
-                            Console.WriteLine(reader);
                             return MapToValue(reader);
                         }
                         return null;
