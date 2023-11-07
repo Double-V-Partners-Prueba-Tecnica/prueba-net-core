@@ -80,6 +80,7 @@ namespace Api.Repository.Implement.TblFacturaRepository
             return new SqlParameter[]{
                 new ("@Id", entity.Id),
                 new ("@IdCliente", entity.IdCliente),
+                new ("@NumeroDeFactura", entity.NumeroDeFactura),
             };
         }
 

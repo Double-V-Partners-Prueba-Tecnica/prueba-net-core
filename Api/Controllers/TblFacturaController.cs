@@ -30,9 +30,9 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(TblFactura catTipoCliente)
+        public IActionResult Create(TblFactura factura)
         {
-            var result = _service.Create(catTipoCliente);
+            var result = _service.Create(factura);
             if (result == null)
                 return BadRequest();
 

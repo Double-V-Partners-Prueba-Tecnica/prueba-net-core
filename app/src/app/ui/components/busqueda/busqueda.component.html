@@ -19,13 +19,14 @@
 
     <div class="numero-factura" *ngIf="tipoBusqueda === 'numero-factura'">
       <label for="numero-factura">Número de Factura</label>
-      <input type="text" id="numero-factura" name="numero-factura" class="numero-factura-input" />
+      <input type="number" id="numero-factura" name="numero-factura" class="numero-factura-input" />
     </div>
 
     <button class="buscar-button" *ngIf="!isLoadingBotonBusqueda" (click)="buscar()">
-      Buscar
+      BUSCAR
     </button>
-    <app-loader *ngIf="isLoadingBotonBusqueda"></app-loader>
+    <app-loader *ngIf="isLoadingBotonBusqueda" [tamanio]="20"></app-loader>
+
 
     <table class="resultados-table" aria-describedby="resultados-descripcion">
       <thead>

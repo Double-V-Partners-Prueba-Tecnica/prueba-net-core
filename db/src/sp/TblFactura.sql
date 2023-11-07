@@ -6,7 +6,7 @@ BEGIN
         Id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
         FechaEmisionFactura datetime NOT NULL,
         IdCliente int NOT NULL,
-        NumeroDeFactura int NOT NULL,
+        NumeroDeFactura int NOT NULL UNIQUE,
         NumeroDeProductos int NOT NULL,
         SubTotalFactura decimal(18,2) NOT NULL,
         TotalImpuestos decimal(18,2) NOT NULL,
@@ -114,7 +114,8 @@ END
 GO
 CREATE PROCEDURE spCreateTblFactura
     @Id int,
-    @IdCliente int
+    @IdCliente int,
+    @NumeroDeFactura int
 AS
 BEGIN
     -- Validar que el cliente exista
@@ -131,7 +132,7 @@ BEGIN
     END
     -- Crear la factura
     DECLARE @FechaEmisionFactura datetime = GETDATE();
-    DECLARE @NumeroDeFactura int = (SELECT COUNT(*) FROM TblFactura) + 1;
+    -- DECLARE @NumeroDeFactura int = (SELECT COUNT(*) FROM TblFactura) + 1;
     DECLARE @SubTotalFactura decimal(18,2) = (SELECT SUM(SubTotal) FROM TblDetalleFactura WHERE IdFactura = (SELECT MAX(Id) FROM TblFactura));
     DECLARE @TotalImpuestos decimal(18,2) = (@SubTotalFactura * 0.19);
     DECLARE @TotalFactura decimal(18,2) = (@SubTotalFactura + @TotalImpuestos);

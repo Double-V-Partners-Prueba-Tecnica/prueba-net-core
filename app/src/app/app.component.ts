@@ -7,8 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'App';
-  estadoInterruptor = true;
-
+  estadoInterruptor = false;
 
   onEstadoCambiado(nuevoEstado: boolean) {
     this.estadoInterruptor = nuevoEstado;

@@ -19,7 +19,10 @@ export class InterruptorComponent implements OnInit {
   }
 
   toggleInterruptor() {
+    console.log('toggleInterruptor');
     this.estadoInterruptor = !this.estadoInterruptor;
     this.estadoCambiado.emit(this.estadoInterruptor);
+    console.log('toggleInterruptor: ' + this.estadoInterruptor);
+
   }
 }

@@ -21,4 +21,5 @@ namespace Api.Models
         // Adicional Properties
         public List<TblDetalleFactura>? DetalleFactura { get; set; }
     }
+
 }

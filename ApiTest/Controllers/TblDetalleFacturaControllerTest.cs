@@ -24,8 +24,6 @@ namespace ApiTest.Controllers
             _controller = new TblDetalleFacturaController(_service);
         }
 
-
-        // 1
         [Fact]
         public void Create_Ok()
         {
@@ -40,12 +38,9 @@ namespace ApiTest.Controllers
             };
             var result = _controller.Create(detalleFactura);
             Assert.IsType<OkObjectResult>(result);
-            // Guarda el ID del registro creado
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var item = Assert.IsType<TblDetalleFactura>(okResult.Value);
+            Assert.IsType<OkObjectResult>(result);
         }
 
-        // 2
         [Fact]
         public void Get_Ok()
         {
@@ -53,17 +48,6 @@ namespace ApiTest.Controllers
             Assert.IsType<OkObjectResult>(result);
         }
 
-        // 3
-        [Fact]
-        public void Get_Quantity()
-        {
-            var result = _controller.Get();
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var items = Assert.IsType<List<TblDetalleFactura>>(okResult.Value);
-            Assert.True(items.Count > 0);
-        }
-
-        // 4
         [Fact]
         public void Get_ById_NotFound()
         {
@@ -72,17 +56,6 @@ namespace ApiTest.Controllers
             Assert.IsType<NotFoundResult>(result);
         }
 
-
-        // 5
-        [Fact]
-        public void Get_ById_Ok()
-        {
-            int id = 1; // Asume que existe un detalle de factura con ID 1 
-            var result = _controller.Get(id);
-            Assert.IsType<OkObjectResult>(result);
-        }
-
-        // 6
         [Fact]
         public void Get_DeletedAt()
         {

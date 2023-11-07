@@ -9,6 +9,16 @@
   margin: 0 auto;
 }
 
+.numero-factura-input-container {
+  display: flex;
+  align-items: center;
+}
+.divider {
+  width: 1px;
+  height: 20px;
+  margin: 0 5px;
+}
+
 .nuevo-button {
   background-color: #000;
   color: #fff;

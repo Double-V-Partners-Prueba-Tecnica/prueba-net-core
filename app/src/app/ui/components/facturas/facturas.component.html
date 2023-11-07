@@ -1,24 +1,26 @@
 <div class="factura">
   <h2>Nueva Factura</h2>
-  <button class="nuevo-button">NUEVO</button>
+  <button class="nuevo-button" (click)="nuevoFactura()">NUEVO</button>
 
   <div class="contenedor">
-    <div class="cliente">
-      <label for="cliente">Cliente</label>
-      <select id="cliente" name="cliente">
-        <!-- Agrega opciones para el cliente aquí -->
-        <option value="cliente1">Cliente 1</option>
-        <option value="cliente2">Cliente 2</option>
-        <!-- Agrega más opciones según tus necesidades -->
+    <div class="cliente"><label for="cliente">Cliente</label>
+      <select id="cliente" name="cliente" [(ngModel)]="datosFactura.idCliente" (change)="clienteSeleccionadoChange()">
+        <option value="" selected disabled>Selecciona un cliente</option>
+        <option *ngFor="let cliente of datosCliente" [value]="cliente.id">{{ cliente.razonSocial }}</option>
       </select>
     </div>
 
     <div class="numero-factura">
       <label for="numero-factura">Número de Factura</label>
-      <input type="text" id="numero-factura" name="numero-factura" class="numero-factura-input" />
+      <div class="numero-factura-input-container">
+        <input type="number" id="numero-factura" name="numero-factura" class="numero-factura-input"
+          [(ngModel)]="datosFactura.numeroDeFactura" (change)="numeroFacturaChange()">
+        <div class="divider" *ngIf="isLoadingNumeroFactura"></div>
+        <app-loader *ngIf="isLoadingNumeroFactura" [tamanio]="20"></app-loader>
+      </div>
     </div>
 
-    <button class="agregar-producto-button">Agregar Producto</button>
+    <button class="agregar-producto-button" (click)="agregarProducto()">AGREGAR PRODUCTO</button>
 
     <table class="productos-table" aria-describedby="productos-descripcion">
       <thead>
@@ -31,23 +33,28 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Agrega filas de productos en la tabla aquí -->
-        <tr>
-          <td>Producto 1</td>
-          <td>$10.00</td>
-          <td>1</td>
-          <td><img src="imagen1.jpg" alt="Producto 1"></td>
-          <td>$10.00</td>
-        </tr>
-        <tr>
-          <td>Producto 2</td>
-          <td>$15.00</td>
-          <td>2</td>
-          <td><img src="imagen2.jpg" alt="Producto 2"></td>
-          <td>$30.00</td>
+        <tr *ngFor="let detalle of datosFactura.detalleFactura">
+          <td>
+            <select [(ngModel)]="detalle.producto" (change)="productoSeleccionadoChange(detalle)">
+              <option [ngValue]="null">Selecciona un producto</option>
+              <option *ngFor="let producto of datosProductos" [ngValue]="producto">{{ producto.nombreProducto }}
+              </option>
+            </select>
+          </td>
+
+          <td>{{ detalle.precioUnitario }}</td>
+          <td>
+            <button (click)="cantidadProductoChange(detalle, true)">+</button>
+            {{ detalle.cantidadDeProducto }}
+            <button (click)="cantidadProductoChange(detalle, false)">-</button>
+
+          </td>
+          <td><img [src]="detalle.producto.imagenProducto" [alt]="detalle.producto.nombreProducto"></td>
+          <td>{{ detalle.subTotal }}</td>
         </tr>
       </tbody>
     </table>
+
 
     <table class="totales-table" aria-describedby="totales-descripcion">
       <thead>
@@ -59,19 +66,19 @@
       <tbody>
         <tr>
           <td>Subtotal</td>
-          <td>...</td>
+          <td>{{ datosFactura.subTotalFactura }}</td>
         </tr>
         <tr>
           <td>Impuestos (19%)</td>
-          <td>...</td>
+          <td>{{ datosFactura.totalImpuestos }}</td>
         </tr>
         <tr>
           <td>Total</td>
-          <td>...</td>
+          <td>{{ datosFactura.totalFactura }}</td>
         </tr>
       </tbody>
     </table>
 
-    <button class="guardar-button">Guardar</button>
+    <button class="guardar-button" (click)="guardarFactura()">GUARDAR</button>
   </div>
 </div>

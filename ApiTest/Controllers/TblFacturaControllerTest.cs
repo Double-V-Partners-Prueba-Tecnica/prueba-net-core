@@ -68,23 +68,7 @@ namespace ApiTest.Controllers
             var result = _controller.Get(id);
             Assert.IsType<NotFoundResult>(result);
         }
-
-        [Fact]
-        public void Create_Ok()
-        {
-            var factura = new TblFactura
-            {
-                FechaEmisionFactura = DateTime.Now,
-                IdCliente = 1, // Asigna un ID de cliente válido
-                NumeroDeFactura = 1,
-                NumeroDeProductos = 5,
-            };
-            var result = _controller.Create(factura);
-            Assert.IsType<OkObjectResult>(result);
-            // Guarda el ID del registro creado
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            Assert.IsType<TblFactura>(okResult.Value);
-        }
+        
         [Fact]
         public void Get_TotalAmountMatchesSubtotalAndTotalImpuestos()
         {

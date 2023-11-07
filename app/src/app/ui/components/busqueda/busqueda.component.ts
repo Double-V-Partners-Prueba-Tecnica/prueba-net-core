@@ -21,8 +21,8 @@ export class BusquedaComponent implements OnInit {
   responseFacturas$: Observable<TblFactura[]>;
   datosCliente: TblCliente[];
   datosFactura: TblFactura[];
+  clienteSeleccionado: number;
   tipoBusqueda = 'cliente';
-  clienteSeleccionado: number; // Propiedad para almacenar el cliente seleccionado
 
   ngOnInit(): void {
     this.responseClientes$ = this._tblClienteUseCase.getAllTblClientes();
