@@ -208,3 +208,89 @@ BEGIN
 END
 GO
 -- EXEC spUpdateTblFactura @Id = 1;
+
+-- spGetFacturasByCliente
+IF EXISTS (SELECT * FROM sysobjects WHERE name='spGetFacturasByCliente' and xtype='P')
+BEGIN
+    DROP PROCEDURE spGetFacturasByCliente;
+END
+GO
+CREATE PROCEDURE spGetFacturasByCliente
+    @IdCliente int
+AS
+BEGIN
+    SELECT
+        F.Id,
+        F.FechaEmisionFactura,
+        F.IdCliente,
+        F.NumeroDeFactura,
+        F.NumeroDeProductos,
+        F.SubTotalFactura,
+        F.TotalImpuestos,
+        F.TotalFactura,
+        F.CreatedAt,
+        F.UpdatedAt,
+        F.DeletedAt,
+        C.Id AS Cliente_Id,
+        C.RazonSocial AS Cliente_RazonSocial,
+        C.IdTipoCliente AS Cliente_IdTipoCliente,
+        C.FechaDeCreacion AS Cliente_FechaDeCreacion,
+        C.RFC AS Cliente_RFC,
+        C.CreatedAt AS Cliente_CreatedAt,
+        C.UpdatedAt AS Cliente_UpdatedAt,
+        C.DeletedAt AS Cliente_DeletedAt,
+        T.Id AS TipoCliente_Id,
+        T.TipoCliente AS TipoCliente_TipoCliente,
+        T.CreatedAt AS TipoCliente_CreatedAt,
+        T.UpdatedAt AS TipoCliente_UpdatedAt,
+        T.DeletedAt AS TipoCliente_DeletedAt
+    FROM TblFactura F
+    LEFT JOIN TblCliente C ON F.IdCliente = C.Id
+    LEFT JOIN CatTipoCliente T ON C.IdTipoCliente = T.Id
+    WHERE F.IdCliente = @IdCliente AND F.DeletedAt IS NULL;
+END
+GO
+-- EXEC spGetFacturasByCliente @IdCliente = 1;
+
+-- spGetFacturasByNumeroFactura
+IF EXISTS (SELECT * FROM sysobjects WHERE name='spGetFacturasByNumeroFactura' and xtype='P')
+BEGIN
+    DROP PROCEDURE spGetFacturasByNumeroFactura;
+END
+GO
+CREATE PROCEDURE spGetFacturasByNumeroFactura
+    @NumeroFactura int
+AS
+BEGIN
+    SELECT
+        F.Id,
+        F.FechaEmisionFactura,
+        F.IdCliente,
+        F.NumeroDeFactura,
+        F.NumeroDeProductos,
+        F.SubTotalFactura,
+        F.TotalImpuestos,
+        F.TotalFactura,
+        F.CreatedAt,
+        F.UpdatedAt,
+        F.DeletedAt,
+        C.Id AS Cliente_Id,
+        C.RazonSocial AS Cliente_RazonSocial,
+        C.IdTipoCliente AS Cliente_IdTipoCliente,
+        C.FechaDeCreacion AS Cliente_FechaDeCreacion,
+        C.RFC AS Cliente_RFC,
+        C.CreatedAt AS Cliente_CreatedAt,
+        C.UpdatedAt AS Cliente_UpdatedAt,
+        C.DeletedAt AS Cliente_DeletedAt,
+        T.Id AS TipoCliente_Id,
+        T.TipoCliente AS TipoCliente_TipoCliente,
+        T.CreatedAt AS TipoCliente_CreatedAt,
+        T.UpdatedAt AS TipoCliente_UpdatedAt,
+        T.DeletedAt AS TipoCliente_DeletedAt
+    FROM TblFactura F
+    LEFT JOIN TblCliente C ON F.IdCliente = C.Id
+    LEFT JOIN CatTipoCliente T ON C.IdTipoCliente = T.Id
+    WHERE F.NumeroDeFactura = @NumeroFactura AND F.DeletedAt IS NULL;
+END
+GO
+-- EXEC spGetFacturasByNumeroFactura @NumeroFactura = 1;

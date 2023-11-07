@@ -28,4 +28,16 @@ export class TblFacturaApiService extends TblFacturaGateway {
     // y devuelve un observable si es necesario.
     return this.http.post<TblFactura>(this._url, tblFactura);
   }
+
+  getByClienteId(idCliente: number): Observable<TblFactura[]> {
+    // Implementa la lógica para obtener las facturas de un cliente
+    // y devuelve un observable si es necesario.
+    return this.http.get<TblFactura[]>(`${this._url}/TblCliente/${idCliente}`);
+  }
+
+  getByNumeroFactura(numeroFactura: number): Observable<TblFactura[]> {
+    // Implementa la lógica para obtener las facturas por numero
+    // y devuelve un observable si es necesario.
+    return this.http.get<TblFactura[]>(`${this._url}/NumeroFactura/${numeroFactura}`);
+  }
 }

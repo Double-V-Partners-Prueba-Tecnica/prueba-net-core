@@ -83,6 +83,50 @@ namespace Api.Repository.Implement.TblFacturaRepository
             };
         }
 
+        public async Task<IEnumerable<TblFactura>> GetFacturasByCliente(int idCliente)
+        {
+            using (var conn = new SqlConnection(_strConn))
+            {
+                using (var cmd = new SqlCommand("spGetFacturasByCliente", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@IdCliente", idCliente);
+                    conn.Open();
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        var list = new List<TblFactura>();
+                        while (await reader.ReadAsync())
+                        {
+                            list.Add(MapToValue(reader));
+                        }
+                        return list;
+                    }
+                }
+            }
+        }
+
+        public async Task<IEnumerable<TblFactura>> GetFacturasByNumeroFactura(int numeroFactura)
+        {
+            using (var conn = new SqlConnection(_strConn))
+            {
+                using (var cmd = new SqlCommand("spGetFacturasByNumeroFactura", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@NumeroFactura", numeroFactura);
+                    conn.Open();
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        var list = new List<TblFactura>();
+                        while (await reader.ReadAsync())
+                        {
+                            list.Add(MapToValue(reader));
+                        }
+                        return list;
+                    }
+                }
+            }
+        }
+
         private TblFactura MapToValue(SqlDataReader reader)
         {
             return new TblFactura()

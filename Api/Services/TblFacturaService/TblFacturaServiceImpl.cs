@@ -27,5 +27,15 @@ namespace Api.Services.TblFacturaService
             return _tblFacturaRepository.Create(tblFactura).Result;
         }
 
+        public IEnumerable<TblFactura> GetFacturasByCliente(int idCliente)
+        {
+            return _tblFacturaRepository.GetFacturasByCliente(idCliente).Result;
+        }
+
+        public IEnumerable<TblFactura> GetFacturasByNumeroFactura(int numeroFactura)
+        {
+            return _tblFacturaRepository.GetFacturasByNumeroFactura(numeroFactura).Result;
+        }
+
     }
 }

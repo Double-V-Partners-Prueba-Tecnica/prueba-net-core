@@ -1,0 +1,19 @@
+<div class="cat-tipo-cliente">
+  <h1>CatTipoCliente</h1>
+  <ul *ngIf="!isLoading">
+    <li *ngFor="let tipoCliente of datos">
+      <div class="card">
+        <h2>Tipo de Cliente ID: {{ tipoCliente.id }}</h2>
+        <p>Tipo de Cliente: {{ tipoCliente.tipoCliente }}</p>
+        <p>Fecha de Creación: {{ tipoCliente.createdAt | date: 'medium' }}</p>
+        <p>Fecha de Actualización: {{ tipoCliente.updatedAt | date: 'medium' }}</p>
+        <p *ngIf="tipoCliente.deletedAt">
+          Fecha de Eliminación: {{ tipoCliente.deletedAt | date: 'medium' }}
+        </p>
+      </div>
+    </li>
+  </ul>
+  <div *ngIf="isLoading">
+    <p>Cargando datos de CatTipoCliente...</p>
+  </div>
+</div>

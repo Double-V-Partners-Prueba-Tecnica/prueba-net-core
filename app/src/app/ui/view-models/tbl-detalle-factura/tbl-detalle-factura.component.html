@@ -1,0 +1,24 @@
+<div class="tbl-detalle-factura">
+  <h1>TblDetalleFactura</h1>
+  <ul *ngIf="!isLoading">
+    <li *ngFor="let detalleFactura of datos">
+      <div class="card">
+        <h2>Detalle Factura ID: {{ detalleFactura.id }}</h2>
+        <p>Factura ID: {{ detalleFactura.idFactura }}</p>
+        <p>Producto ID: {{ detalleFactura.idProducto }}</p>
+        <p>Cantidad de Producto: {{ detalleFactura.cantidadDeProducto }}</p>
+        <p>Precio Unitario: {{ detalleFactura.precioUnitario | currency: 'USD': 'symbol': '1.2-2' }}</p>
+        <p>Subtotal: {{ detalleFactura.subTotal | currency: 'USD': 'symbol': '1.2-2' }}</p>
+        <p>Notas: {{ detalleFactura.notas }}</p>
+        <p>Fecha de Creación: {{ detalleFactura.createdAt | date: 'medium' }}</p>
+        <p>Fecha de Actualización: {{ detalleFactura.updatedAt | date: 'medium' }}</p>
+        <p *ngIf="detalleFactura.deletedAt">
+          Fecha de Eliminación: {{ detalleFactura.deletedAt | date: 'medium' }}
+        </p>
+      </div>
+    </li>
+  </ul>
+  <div *ngIf="isLoading">
+    <p>Cargando datos de TblDetalleFactura...</p>
+  </div>
+</div>

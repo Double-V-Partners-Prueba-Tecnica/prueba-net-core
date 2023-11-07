@@ -20,4 +20,12 @@ export class TblFacturaUseCases {
   createTblFactura(tblFactura: TblFactura): Observable<TblFactura> {
     return this.tblFacturaGateway.saveNew(tblFactura);
   }
+
+  getTblFacturasByCliente(id: number): Observable<TblFactura[]> {
+    return this.tblFacturaGateway.getByClienteId(id);
+  }
+
+  getTblFacturasByNumber(numeroFactura: number): Observable<TblFactura[]> {
+    return this.tblFacturaGateway.getByNumeroFactura(numeroFactura);
+  }
 }

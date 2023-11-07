@@ -1,0 +1,22 @@
+<div class="tbl-cliente">
+  <h1>TblCliente</h1>
+  <ul *ngIf="!isLoading">
+    <li *ngFor="let cliente of datos">
+      <div class="card">
+        <h2>Cliente ID: {{ cliente.id }}</h2>
+        <p>Razón Social: {{ cliente.razonSocial }}</p>
+        <p>ID Tipo de Cliente: {{ cliente.idTipoCliente }}</p>
+        <p>RFC: {{ cliente.rfc }}</p>
+        <p>Fecha de Creación: {{ cliente.fechaDeCreacion | date: 'medium' }}</p>
+        <p>Fecha de Actualización: {{ cliente.updatedAt | date: 'medium' }}</p>
+        <p *ngIf="cliente.deletedAt">
+          Fecha de Eliminación: {{ cliente.deletedAt | date: 'medium' }}
+        </p>
+        <p>Tipo de Cliente: {{ cliente.tipoCliente.tipoCliente }}</p>
+      </div>
+    </li>
+  </ul>
+  <div *ngIf="isLoading">
+    <p>Cargando datos de TblCliente...</p>
+  </div>
+</div>

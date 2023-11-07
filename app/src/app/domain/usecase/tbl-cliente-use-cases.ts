@@ -20,4 +20,6 @@ export class TblClienteUseCases {
   createTblCliente(tblCliente: TblCliente): Observable<TblCliente> {
     return this.tblClienteGateway.saveNew(tblCliente);
   }
+
+
 }

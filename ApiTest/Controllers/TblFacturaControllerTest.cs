@@ -5,6 +5,7 @@ using Api.Services.TblFacturaService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
+
 namespace ApiTest.Controllers
 {
     public class TblFacturaControllerTest
@@ -82,8 +83,7 @@ namespace ApiTest.Controllers
             Assert.IsType<OkObjectResult>(result);
             // Guarda el ID del registro creado
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var item = Assert.IsType<TblFactura>(okResult.Value);
-
+            Assert.IsType<TblFactura>(okResult.Value);
         }
         [Fact]
         public void Get_TotalAmountMatchesSubtotalAndTotalImpuestos()
@@ -147,6 +147,69 @@ namespace ApiTest.Controllers
             }
         }
 
+        [Fact]
+        public void GetFacturasByCliente_Found()
+        {
+            // Arrange
+            int idCliente = 1; // ID de cliente válido
+
+            // Act
+            var result = _controller.GetFacturasByCliente(idCliente);
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var facturas = Assert.IsType<List<TblFactura>>(okResult.Value);
+            Assert.NotEmpty(facturas); // Verificar que se encontraron facturas
+        }
+
+        [Fact]
+        public void GetFacturasByCliente_NotFound()
+        {
+            // Arrange
+            int idCliente = 99; // ID de cliente inexistente
+
+            // Act
+            var result = _controller.GetFacturasByCliente(idCliente);
+
+            // Assert
+            Assert.IsType<OkObjectResult>(result);
+
+            // Verificar que el resultado es una lista vacía
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var facturas = Assert.IsType<List<TblFactura>>(okResult.Value);
+            Assert.Empty(facturas);
+        }
+
+        [Fact]
+        public void GetFacturasByNumeroFactura_Exists_ReturnsOkResult()
+        {
+            // Arrange
+            int numeroFactura = 1; // Define el número de factura que esperas que exista.
+
+            // Act
+            var result = _controller.GetFacturasByNumeroFactura(numeroFactura);
+
+            // Assert
+            Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Fact]
+        public void GetFacturasByNumeroFactura_NotFound_ReturnsNotFoundResult()
+        {
+            // Arrange
+            int numeroFactura = 9999; // Define un número de factura que no existe.
+
+            // Act
+            var result = _controller.GetFacturasByNumeroFactura(numeroFactura);
+
+            // Assert
+            Assert.IsType<OkObjectResult>(result);
+
+            // Verificar que el resultado es una lista vacía
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var facturas = Assert.IsType<List<TblFactura>>(okResult.Value);
+            Assert.Empty(facturas);
+        }
 
     }
 }

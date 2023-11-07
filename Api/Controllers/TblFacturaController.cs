@@ -39,5 +39,22 @@ namespace Api.Controllers
             return Ok(result);
         }
 
+        [HttpGet("TblCliente/{idCliente}")]
+        public IActionResult GetFacturasByCliente(int idCliente)
+        {
+            var catTipoCliente = _service.GetFacturasByCliente(idCliente);
+            if (catTipoCliente == null)
+                return NotFound();
+            return Ok(catTipoCliente);
+        }
+
+        [HttpGet("NumeroFactura/{numeroFactura}")]
+        public IActionResult GetFacturasByNumeroFactura(int numeroFactura)
+        {
+            var catTipoCliente = _service.GetFacturasByNumeroFactura(numeroFactura);
+            if (catTipoCliente == null)
+                return NotFound();
+            return Ok(catTipoCliente);
+        }
     }
 }

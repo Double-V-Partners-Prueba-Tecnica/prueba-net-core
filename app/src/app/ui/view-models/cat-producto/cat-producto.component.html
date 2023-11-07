@@ -3,7 +3,6 @@
   <ul *ngIf="!isLoading">
     <li *ngFor="let catProducto of datos">
       <div class="card">
-        <h1>Hola</h1>
         <h2>Producto ID: {{ catProducto.id }}</h2>
         <p>Nombre del Producto: {{ catProducto.nombreProducto }}</p>
         <p>Imagen: <img [src]="catProducto.imagenProducto" alt="Imagen del Producto" /></p>
