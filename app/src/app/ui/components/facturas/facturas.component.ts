@@ -37,7 +37,6 @@ export class FacturasComponent implements OnInit {
     this.responseProductos$ = this._catProductoUseCases.getAllCatProductos();
     this.responseProductos$.subscribe((data) => {
       this.datosProductos = data;
-      this.agregarProducto();
     });
   }
 
@@ -74,6 +73,11 @@ export class FacturasComponent implements OnInit {
   }
 
   nuevoFactura() {
+
+    const botonGuardar = <HTMLInputElement>(
+      document.getElementById('guardar-button-crear-factura')
+    );
+    botonGuardar.disabled = false;
     this.datosFactura = {
       id: 0, // Asigna el valor correspondiente
       fechaEmisionFactura: new Date(), // Asigna la fecha actual o la deseada
@@ -149,10 +153,10 @@ export class FacturasComponent implements OnInit {
           this._tblFacturaUseCase.getTblFacturaById(data.id);
         responseFactura$.subscribe((data) => {
           if (data) {
-            console.log('Factura enviada: ');
-            console.log(this.datosFactura);
-            console.log('Factura creada: ');
-            console.log(data);
+            const botonGuardar = <HTMLInputElement>(
+              document.getElementById('guardar-button-crear-factura')
+            );
+            botonGuardar.disabled = true;
             alert('Factura creada exitosamente');
           } else {
             alert('Error al crear la factura');
